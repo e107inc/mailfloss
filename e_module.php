@@ -8,14 +8,15 @@ if(e107::pref('mailfloss','active', false) && e107::pref('mailfloss','apikey', f
 class mailfloss_module
 {
 
-	static function getResponse($email)
+	public static function getResponse($email)
 	{
+		e107::getMessage()->addDebug("Running Mailfloss");
 		$apikey = e107::pref('mailfloss','apikey');
 		return e107::getFile()->getRemoteContent('https://api.mailfloss.com/verify?email='.$email.'&api_key='.$apikey);
 	}
 
 
-	static function check($email)
+	public static function check($email)
 	{
 		if(empty($email))
 		{
@@ -34,7 +35,6 @@ class mailfloss_module
 				}
 
 				return false;
-
 			}
 		}
 
@@ -48,7 +48,7 @@ class mailfloss_module
 	}
 
 
-	static function log($data)
+	private static function log($data)
 	{
 		$fields = ['email', 'suggestion', 'status', 'reason', 'role', 'disposable', 'free', 'passed', 'domain', 'meta'];
 
@@ -59,7 +59,10 @@ class mailfloss_module
 			$insert[$key] = $data[$fld];
 		}
 
-		e107::getDb()->insert('mailfloss', $insert);
+		if(!e107::getDb()->insert('mailfloss', $insert))
+		{
+			e107::getMessage()->addDebug("Mailfloss insert failed");
+		}
 
 	}
 
