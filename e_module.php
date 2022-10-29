@@ -48,7 +48,7 @@ class mailfloss_module
 	}
 
 
-	private static function log($data)
+	public static function log($data)
 	{
 		$fields = ['email', 'suggestion', 'status', 'reason', 'role', 'disposable', 'free', 'passed', 'domain', 'meta'];
 
