@@ -1,5 +1,6 @@
 CREATE TABLE `mailfloss` (
   `mailfloss_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mailfloss_date` int(11) NOT NULL,
   `mailfloss_email` varchar(50) NOT NULL,
   `mailfloss_suggestion` varchar(255) NOT NULL,
   `mailfloss_status` varchar(50) NOT NULL,

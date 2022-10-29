@@ -76,7 +76,7 @@ class mailfloss_ui extends e_admin_ui
 	
 		protected $fields 		= array (
 			'checkboxes'              => array (  'title' => '',  'type' => null,  'data' => null,  'width' => '5%',  'thclass' => 'center',  'forced' => 'value',  'class' => 'center',  'toggle' => 'e-multiselect',  'readParms' =>  array (),  'writeParms' =>  array (),),
-			'mailfloss_id'            => array (  'title' => LAN_ID,  'data' => 'int',  'width' => '5%',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
+			'mailfloss_id'            => array (  'title' => LAN_ID, 'type'=>'number', 'data' => 'int',  'width' => '5%',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_email'         => array (  'title' => LAN_EMAIL,  'type' => 'email',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_suggestion'    => array (  'title' => 'Suggestion',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_status'        => array (  'title' => 'Status',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),

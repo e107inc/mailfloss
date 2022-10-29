@@ -11,8 +11,12 @@ class mailfloss_module
 	public static function getResponse($email)
 	{
 		e107::getMessage()->addDebug("Running Mailfloss");
+
 		$apikey = e107::pref('mailfloss','apikey');
-		return e107::getFile()->getRemoteContent('https://api.mailfloss.com/verify?email='.$email.'&api_key='.$apikey);
+
+		$url = "https://api.mailfloss.com/verify?email=".$email."&api_key=".$apikey;
+
+		return e107::getFile()->getRemoteContent($url);
 	}
 
 
@@ -23,10 +27,18 @@ class mailfloss_module
 			return false;
 		}
 
-		if($response = self::getResponse($email))
+		$email = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+		$response = self::getResponse($email);
+
+		//file_put_contents(e_PLUGIN."mailfloss/mailfloss.log", date('c')."\n". $response."\n\n", FILE_APPEND);
+
+		if(!empty($response))
 		{
 			if($result = e107::unserialize($response))
 			{
+				e107::getMessage()->addDebug(print_a($result,true));
+
 				self::log($result);
 
 				if($result['passed'] === true)
@@ -36,6 +48,12 @@ class mailfloss_module
 
 				return false;
 			}
+
+			e107::getMessage()->addDebug($response);
+		}
+		else
+		{
+			e107::getMessage()->addDebug("No response from Mailfloss");
 		}
 
 		// fall back.
@@ -58,6 +76,8 @@ class mailfloss_module
 			$key = 'mailfloss_'.$fld;
 			$insert[$key] = $data[$fld];
 		}
+
+		$insert['mailfloss_date'] = time();
 
 		if(!e107::getDb()->insert('mailfloss', $insert))
 		{
