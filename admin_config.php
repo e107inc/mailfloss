@@ -77,6 +77,7 @@ class mailfloss_ui extends e_admin_ui
 		protected $fields 		= array (
 			'checkboxes'              => array (  'title' => '',  'type' => null,  'data' => null,  'width' => '5%',  'thclass' => 'center',  'forced' => 'value',  'class' => 'center',  'toggle' => 'e-multiselect',  'readParms' =>  array (),  'writeParms' =>  array (),),
 			'mailfloss_id'            => array (  'title' => LAN_ID, 'type'=>'number', 'data' => 'int',  'width' => '5%',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
+			'mailfloss_date'         => array (  'title' => LAN_DATE,  'type' => 'datestamp',  'data' => 'int', 'filter'=>true, 'width' => 'auto',  'readonly' => '1',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_email'         => array (  'title' => LAN_EMAIL,  'type' => 'email',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_suggestion'    => array (  'title' => 'Suggestion',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_status'        => array (  'title' => 'Status',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
@@ -87,6 +88,7 @@ class mailfloss_ui extends e_admin_ui
 			'mailfloss_passed'        => array (  'title' => 'Passed',  'type' => 'boolean',  'data' => 'int',  'width' => 'auto',  'filter' => 'value',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_domain'        => array (  'title' => 'Domain',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_meta'          => array (  'title' => 'Meta',  'type' => 'method',  'data' => 'str',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',  'filter' => false,  'batch' => false,),
+			'mailfloss_uri'           => array (  'title' => 'URI',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'options'                 => array (  'title' => LAN_OPTIONS,  'type' => null,  'data' => null,  'width' => '10%',  'thclass' => 'center last',  'class' => 'center last',  'forced' => 'value',  'readParms' =>  array (),  'writeParms' =>  array (),),
 		);		
 		

@@ -11,5 +11,6 @@ CREATE TABLE `mailfloss` (
   `mailfloss_passed` int(1) NOT NULL,
   `mailfloss_domain` varchar(50) NOT NULL,
   `mailfloss_meta` text NOT NULL,
+  `mailfloss_uri` varchar(255) NOT NULL,
   PRIMARY KEY (`mailfloss_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
