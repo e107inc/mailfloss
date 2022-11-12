@@ -20,6 +20,30 @@ class mailfloss_module
 			return $cached;
 		}
 
+		if($row = e107::getDb()->retrieve('mailfloss', '*', 'mailfloss_email = "'.$email.'" LIMIT 1'))
+		{
+			$ret = [];
+			unset($row['mailfloss_uri']);
+			foreach($row as $key=>$val)
+			{
+				$name = str_replace('mailfloss_', '', $key);
+
+				if($name === 'passed' || $name === 'disposable' || $name === 'free' || $name === 'role')
+				{
+					$ret[$name] = (bool) $val;
+				}
+				else
+				{
+					$ret[$name] = $val;
+				}
+			}
+
+			e107::getMessage()->addDebug("Using Mailfloss Table Log Cache".print_a($row,true));
+			self::$cached = true;
+
+			return e107::serialize($ret, 'json');
+		}
+
 		e107::getMessage()->addDebug("Running Mailfloss");
 
 		$apikey = e107::pref('mailfloss','apikey');
@@ -51,8 +75,10 @@ class mailfloss_module
 			if($result = e107::unserialize($response))
 			{
 				e107::getMessage()->addDebug(print_a($result,true));
+				$log = $result;
+				$log['email'] = $email; // include original email in case of an empty result.
 
-				self::log($result);
+				self::log($log);
 
 				if($result['passed'] === true)
 				{
