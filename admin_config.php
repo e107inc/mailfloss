@@ -153,10 +153,10 @@ class mailfloss_ui extends e_admin_ui
 		// left-panel help menu area. (replaces e_help.php used in old plugins)
 		public function renderHelp()
 		{
-			$caption = LAN_HELP;
+		/*	$caption = LAN_HELP;
 			$text = 'Some help text';
 
-			return array('caption'=>$caption,'text'=> $text);
+			return array('caption'=>$caption,'text'=> $text);*/
 
 		}
 			
