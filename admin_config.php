@@ -176,9 +176,11 @@ class mailfloss_ui extends e_admin_ui
 			$frm = $this->getUI();
 
 			$text = $frm->open('test');
-			$text .= "<div class='input-append'>";
-			$text .= $frm->text('testEmail', '', 80, ['size'=>'xlarge','placeholder'=>'enter an email address to test']);
-			$text .= $frm->button('testGo', LAN_TEST, 'submit');
+			$text .= "<div class='input-group input-xlarge'>";
+			$text .= $frm->text('testEmail', '', 80, ['size'=>'xlarge','placeholder'=>'fakeEmail@nowhere.com']);
+			$text .= "<span class='input-group-btn'>";
+			$text .= $frm->button('testGo', LAN_TEST, 'submit', '', ['class'=>'btn btn-primary']);
+			$text .= "</span>";
 			$text .= "</div>";
 			$text .= $frm->close();
 

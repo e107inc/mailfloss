@@ -68,6 +68,11 @@ class mailfloss_module
 
 		$email = filter_var($email, FILTER_VALIDATE_EMAIL);
 
+		if(strpos($email,'@') === false)
+		{
+			return false;
+		}
+
 		$response = self::getResponse($email);
 
 		if(!empty($response))
