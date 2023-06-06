@@ -1,6 +1,6 @@
 <?php
 
-if(e107::pref('mailfloss','active', false) && e107::pref('mailfloss','apikey', false))
+if(e107::pref('mailfloss','active', false) && e107::pref('mailfloss','apikey', false) && !getperms('0'))
 {
 	e107::getOverride()->replace('check_email', 'mailfloss_module::check');
 }
