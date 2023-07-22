@@ -99,7 +99,9 @@ class mailfloss_ui extends e_admin_ui
 		protected $prefs = array(
 			'active'		=> array('title'=> 'Active', 'tab'=>0, 'type'=>'boolean', 'data' => 'str', 'help'=>'When enabled mailfloss will be used for email validation', 'writeParms' => array()),
 			'apikey'		=> array('title'=> 'Apikey', 'tab'=>0, 'type'=>'text', 'data' => 'str', 'help'=>'Enter your mailfloss api key', 'writeParms' => array()),
-		); 
+			'unknown'		=> array('title'=> 'Accept Unknown', 'tab'=>0, 'type'=>'bool', 'data' => 'int', 'help'=>"When enabled will mark an unknown email as 'passed'", 'writeParms' => array()),
+
+		);
 
 	
 		public function init()

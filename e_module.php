@@ -79,6 +79,11 @@ class mailfloss_module
 		{
 			if($result = e107::unserialize($response))
 			{
+				if(e107::pref('mailfloss', 'unknown', false) && ($result['status'] === 'unknown'))
+				{
+					$result['status'] = 'passed';
+				}
+
 				e107::getMessage()->addDebug(print_a($result,true));
 				$log = $result;
 				$log['email'] = $email; // include original email in case of an empty result.
@@ -125,6 +130,8 @@ class mailfloss_module
 			$key = 'mailfloss_'.$fld;
 			$insert[$key] = $data[$fld];
 		}
+
+
 
 		$insert['mailfloss_date'] = time();
 		$insert['mailfloss_uri'] = $_SERVER['REQUEST_URI'];
