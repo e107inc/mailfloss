@@ -84,6 +84,11 @@ class mailfloss_module
 					$result['status'] = 'passed';
 				}
 
+				if(!empty($result['status']) && ($result['status'] === 'passed'))
+				{
+					$result['passed'] = true;
+				}
+
 				e107::getMessage()->addDebug(print_a($result,true));
 				$log = $result;
 				$log['email'] = $email; // include original email in case of an empty result.
