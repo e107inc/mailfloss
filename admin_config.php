@@ -80,12 +80,12 @@ class mailfloss_ui extends e_admin_ui
 			'mailfloss_date'         => array (  'title' => LAN_DATE,  'type' => 'datestamp',  'data' => 'int', 'filter'=>true, 'width' => 'auto',  'readonly' => '1',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_email'         => array (  'title' => LAN_EMAIL,  'type' => 'email',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_suggestion'    => array (  'title' => 'Suggestion',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
-			'mailfloss_status'        => array (  'title' => 'Status',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
+			'mailfloss_status'        => array (  'title' => 'Status',  'type' => 'method',  'data' => 'safestr', 'filter'=>true, 'batch'=>true, 'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_reason'        => array (  'title' => 'Reason',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_role'          => array (  'title' => 'Role',  'type' => 'boolean',  'data' => 'int',  'width' => 'auto',  'filter' => 'value',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_disposable'    => array (  'title' => 'Disposable',  'type' => 'boolean',  'data' => 'int',  'width' => 'auto',  'filter' => 'value',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_free'          => array (  'title' => 'Free',  'type' => 'boolean',  'data' => 'int',  'width' => 'auto',  'filter' => 'value',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
-			'mailfloss_passed'        => array (  'title' => 'Passed',  'type' => 'boolean',  'data' => 'int',  'width' => 'auto', 'inline'=>true, 'filter' => 'value',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
+			'mailfloss_passed'        => array (  'title' => 'Passed',  'type' => 'boolean',  'data' => 'int',  'width' => 'auto', 'inline'=>true, 'filter' => true, 'batch'=>true, 'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_domain'        => array (  'title' => 'Domain',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
 			'mailfloss_meta'          => array (  'title' => 'Meta',  'type' => 'method',  'data' => 'str',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',  'filter' => false,  'batch' => false,),
 			'mailfloss_uri'           => array (  'title' => 'URI',  'type' => 'text',  'data' => 'safestr',  'width' => 'auto',  'readonly' => 'value',  'help' => '',  'readParms' =>  array (),  'writeParms' =>  array (),  'class' => 'left',  'thclass' => 'left',),
@@ -255,7 +255,24 @@ class mailfloss_ui extends e_admin_ui
 
 class mailfloss_form_ui extends e_admin_form_ui
 {
+	private $mailflossStatus = [];
 
+	function init()
+	{
+		if($d = e107::getDb()->retrieve('mailfloss','mailfloss_status','GROUP BY mailfloss_status ORDER BY mailfloss_status',true))
+		{
+			foreach($d as $row)
+			{
+				if($val = $row['mailfloss_status'])
+				{
+					$this->mailflossStatus[$val] = $val;
+				}
+			}
+
+		}
+
+
+	}
 	
 	// Custom Method/Function 
 	function mailfloss_meta($curVal,$mode)
@@ -281,6 +298,30 @@ class mailfloss_form_ui extends e_admin_form_ui
 			break;
 		}
 		
+		return null;
+	}
+
+	function mailfloss_status($curVal,$mode)
+	{
+
+
+		switch($mode)
+		{
+			case 'read': // List Page
+				return $curVal;
+			break;
+
+			case 'write': // Edit Page
+				return $this->select('mailfloss_meta',$this->mailflossStatus,$curVal, 'size=large');
+			break;
+
+			case 'filter':
+			case 'batch':
+				return $this->mailflossStatus;
+			break;
+
+		}
+
 		return null;
 	}
 
